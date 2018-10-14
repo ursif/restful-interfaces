@@ -17,5 +17,6 @@ const timing = require('./timing')
 const helmet = require('./helmet')
 const ratelimit = require('./ratelimit')
 const bodyParser = require('./bodyParser')
+const cors = require('./cors')
 
-module.exports = [errorCatching, timing, helmet, bodyParser]
+module.exports = [errorCatching, timing, helmet, bodyParser, cors]

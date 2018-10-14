@@ -128,7 +128,7 @@ const restHandler = rest({
 app.use(restHandler.middleware())
 
 app.use(ctx => {
-  if (ctx.request.path === '/api/v1') {
+  if (ctx.request.path === '/') {
     ctx.body = {
       data: restHandler.routes
         .filter(
