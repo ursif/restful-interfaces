@@ -88,7 +88,7 @@ const destroy = (pool, table) => (id, returning = '*') => {
     .then(({ rows }) => rows[0])
 }
 
-const byId = (pool, table) => id => {
+const byId = (pool, table) => (id, returning = '*') => {
   if (!id) {
     const err = new Error('No Id given to byId')
 
@@ -98,7 +98,7 @@ const byId = (pool, table) => id => {
   }
 
   return pool
-    .query(`SELECT * FROM ${table} WHERE id = $1`, [id])
+    .query(`SELECT ${returning} FROM ${table} WHERE id = $1`, [id])
     .then(({ rows }) => rows[0])
 }
 

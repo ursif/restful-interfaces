@@ -18,5 +18,6 @@ const helmet = require('./helmet')
 const ratelimit = require('./ratelimit')
 const bodyParser = require('./bodyParser')
 const cors = require('./cors')
+const notFound = require('./notFound')
 
-module.exports = [errorCatching, timing, helmet, bodyParser, cors]
+module.exports = [errorCatching, timing, helmet, cors, bodyParser, notFound]

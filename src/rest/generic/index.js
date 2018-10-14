@@ -53,7 +53,8 @@ const handlers = (type, handleResponse) => ({
   create: ctx =>
     handleResponse(
       ctx,
-      ctx.db(type).create(ctx.request.body, ctx.restReturning)
+      ctx.db(type).create(ctx.request.body, ctx.restReturning),
+      201
     ),
   /* PATCH /:type/:id */
   update: ctx =>
@@ -71,13 +72,15 @@ const handlers = (type, handleResponse) => ({
   remove: ctx =>
     handleResponse(
       ctx,
-      ctx.db(type).destroy(ctx.params[type.slice(0, -1)], ctx.restReturning)
+      ctx.db(type).destroy(ctx.params[type.slice(0, -1)], ctx.restReturning),
+      200
     ),
   /* GET /:type/:id */
   show: ctx =>
     handleResponse(
       ctx,
-      ctx.db(type).byId(ctx.params[type.slice(0, -1)], ctx.restReturning)
+      ctx.db(type).byId(ctx.params[type.slice(0, -1)], ctx.restReturning),
+      200
     )
 })
 

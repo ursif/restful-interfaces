@@ -1,3 +1,3 @@
-const cors = require('koa-cors')
+const cors = require('@koa/cors')
 
 module.exports = () => cors()
