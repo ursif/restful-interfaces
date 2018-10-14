@@ -121,16 +121,38 @@ Object.keys(queries).forEach(query => {
  * any checks. We need to catch and set things
  * above this.
  */
-app.use(
-  rest({
-    routes: configuration.routes
-  }).middleware()
-)
+const restHandler = rest({
+  routes: configuration.routes
+})
 
+app.use(restHandler.middleware())
+
+app.use(ctx => {
+  if (ctx.request.path === '/api/v1') {
+    ctx.body = {
+      data: restHandler.routes
+        .filter(
+          ({ middlewares }) =>
+            !middlewares.some(fn => fn.name == 'notImplemented_')
+        )
+        .map(({ path, method }) => ({
+          path,
+          method
+        }))
+        .reduce(
+          (a, c) => ({
+            ...a,
+            [c.path]: c.path in a ? a[c.path].concat(c.method) : [c.method]
+          }),
+          {}
+        )
+    }
+  }
+})
 /**
  * Finally, once all of our world is set up,
  * we start listening at the specified port
  */
-app.listen(PORT, () =>
+app.listen(PORT, () => {
   logger.info(`RESTful Interface Listening at http://localhost:${PORT}`)
-)
+})
