@@ -80,7 +80,10 @@ const app = globalMiddleware.reduce(
   context(new Koa())
 )
 
-const routes = ['users', 'todos', 'lists', 'reminders', 'records']
+/**
+ * Routes for REST Server
+ */
+const routes = ['users', 'todos', 'lists', 'reminders', 'records', 'events']
 
 /**
  * Here we add our validations per resource

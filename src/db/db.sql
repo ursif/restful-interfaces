@@ -71,3 +71,20 @@ CREATE TABLE reminders(
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   last_updated TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
+/* We are creating a new table called events
+    which will hold all of the events that
+    our users have created */
+CREATE TABLE events(
+  id UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+  title VARCHAR(240) NOT NULL,
+  message TEXT,
+  keywords TEXT[],
+  url TEXT,
+  user_id UUID NOT NULL REFERENCES users(id),
+  attending UUID[],
+  start_at TIMESTAMP NOT NULL,
+  location TEXT,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  last_updated TIMESTAMP NOT NULL DEFAULT NOW()
+);

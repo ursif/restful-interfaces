@@ -15,7 +15,9 @@
  * get the request all the way down to the DB layer.
  */
 const records = require('./records')
+const events = require('./events')
 
 module.exports = {
-  records
+  records,
+  events
 }
