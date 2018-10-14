@@ -9,7 +9,10 @@
  *
  * A query mapping is a koa-rest-router middleware that
  * maps the `ctx.query` into `ctx.restQuery`, a SQL string
- * that gets passed to any requested routes
+ * that gets passed to any requested routes.
+ *
+ * Every query mapping _must_ call `next()` in order to
+ * get the request all the way down to the DB layer.
  */
 const records = require('./records')
 
