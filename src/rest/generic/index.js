@@ -11,6 +11,9 @@
  * You can also give the `ctx` a `restReturning` before
  * it gets to here in order to return specific columns
  * from the query. Else, it will return _all_ columns
+ *
+ * The index route has the ability to have a SQL command
+ * be read from `ctx.restQuery`.
  */
 
 const options = {
@@ -23,6 +26,7 @@ const options = {
 }
 
 const handlers = (type, handleResponse) => ({
+  /* GET /:type */
   index: async ctx => {
     const {
       limit = 10,
@@ -45,11 +49,13 @@ const handlers = (type, handleResponse) => ({
       )
     )
   },
+  /* POST /:type */
   create: ctx =>
     handleResponse(
       ctx,
       ctx.db(type).create(ctx.request.body, ctx.restReturning)
     ),
+  /* PATCH /:type/:id */
   update: ctx =>
     handleResponse(
       ctx,
@@ -61,11 +67,13 @@ const handlers = (type, handleResponse) => ({
         ctx.restReturning
       )
     ),
+  /* DELETE /:type/:id */
   remove: ctx =>
     handleResponse(
       ctx,
       ctx.db(type).destroy(ctx.params[type.slice(0, -1)], ctx.restReturning)
     ),
+  /* GET /:type/:id */
   show: ctx =>
     handleResponse(
       ctx,

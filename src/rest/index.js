@@ -20,6 +20,14 @@
  * - restReturning: [array, of, columns, to, return]
  *                  || 'string, of, columns'
  *                  || '*'
+ *
+ * For the main GET /:type requests, you can also set
+ * an SQL query to be ran instead of just reading the last
+ * from the table:
+ *
+ * - `ctx.restQuery`: A SQL command to put between
+ *                    `SELECT * FROM table`
+ *                    and `ORDER BY LIMIT OFFSET`
  */
 
 const router = require('koa-rest-router')({ prefix: process.env.REST_PREFIX })
@@ -32,9 +40,7 @@ const handleResponse = async (ctx, prom, status = 200) => {
   }
 }
 
-const defaultRoutes = ['users', 'records', 'todos', 'reminders', 'lists']
-
-module.exports = ({ routes = defaultRoutes }) => {
+module.exports = ({ routes }) => {
   const withHandlers = routes.map(r => [r, generic])
 
   withHandlers.forEach(([resourceName, routeInfo]) => {

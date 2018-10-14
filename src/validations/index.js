@@ -1,3 +1,14 @@
+/**
+ * This module holds all of the validations
+ * for the routes exposed via the server.
+ *
+ * You should have all routes that are exposed
+ * covered by this file.
+ *
+ * A validation is a koa-rest-router middleware that ensures
+ * that the needed arguments are set and the query will
+ * only return the appropriate columns
+ */
 const users = require('./users')
 const records = require('./records')
 const todos = require('./todos')
