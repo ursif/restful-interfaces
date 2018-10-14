@@ -1,0 +1,17 @@
+# Artifacts
+node_modules/
+coverage/
+dist/
+
+# Files
+.env
+*.log
+*.log.*
+*.private.*
+
+# macOS
+.DS_STORE
+
+# Dev
+.vs
+.vscode

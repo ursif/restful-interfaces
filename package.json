@@ -1,0 +1,32 @@
+{
+  "name": "@ursif/cms",
+  "version": "0.0.0-development",
+  "main": "index.js",
+  "author": "Tim Roberts <timiroberts@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint ./src --fix",
+    "test": "jest",
+    "test:w": "yarn test --watch",
+    "coverage": "yarn test --coverage",
+    "dev": "nodemon --watch src/ src/index.js"
+  },
+  "devDependencies": {
+    "dotenv": "^6.1.0",
+    "eslint": "^5.7.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.4",
+    "prettier": "^1.14.3"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.1",
+    "koa": "^2.5.3",
+    "koa-bodyparser": "^4.2.1",
+    "koa-helmet": "^4.0.0",
+    "koa-ratelimit": "^4.1.2",
+    "koa-rest-router": "^1.0.1",
+    "koa-router": "^7.4.0",
+    "pg": "^7.5.0"
+  }
+}

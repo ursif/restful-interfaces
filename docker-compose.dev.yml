@@ -1,0 +1,10 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - '9999:5432'
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: timi
+      POSTGRES_DB: cms
