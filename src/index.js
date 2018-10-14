@@ -14,12 +14,31 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+/**
+ * Our Server Framework
+ */
 const Koa = require('koa')
 
-const createLogger = require('./logger')
-const globalMiddleware = require('./globalMiddleware')
-const db = require('./db')
+/**
+ * A function that adds the needed context
+ * to the application
+ */
+const context = require('./context')
+/**
+ * A function that adds the needed REST routes
+ * given a list of route names
+ */
 const rest = require('./rest')
+
+/**
+ * Logger for middleware to use
+ */
+const createLogger = require('./logger')
+/**
+ * Global Middleware to add before _any_ other
+ * things are ran
+ */
+const globalMiddleware = require('./globalMiddleware')
 
 /**
  * We have the ability to validate incoming requests
@@ -31,26 +50,34 @@ const rest = require('./rest')
 const validations = require('./validations')
 const queries = require('./queries')
 
+/**
+ * Grab any needed env arguments
+ */
 const { PORT = 3210 } = process.env
 
+/**
+ * Create the logger for middleware
+ */
 const logger = createLogger({
   instance: console,
   level: 'debug'
 })
 
+/**
+ * Add any values that our middleware
+ * will need
+ */
 const middlewareConfig = {
   logger
 }
 
+/**
+ * Add the context and the middleware
+ * to the application
+ */
 const app = globalMiddleware.reduce(
   (a, fn) => a.use(fn(middlewareConfig)),
-  (() => {
-    const a = new Koa()
-
-    a.context.db = db
-
-    return a
-  })()
+  context(new Koa())
 )
 
 const routes = ['users', 'todos', 'lists', 'reminders', 'records']
