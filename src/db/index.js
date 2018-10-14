@@ -15,13 +15,18 @@ const create = (pool, table) => (data, returning = '*') => {
     .then(({ rows }) => rows[0])
 }
 
-const read = (pool, table) => (query, returning = '*') => {
-  const { limit, offset, order_by, sort } = query
+const read = (pool, table) => (
+  options,
+  returning = '*',
+  query = 'WHERE 1 = 1'
+) => {
+  const { limit, offset, order_by, sort } = options
 
   return pool
     .query(
       `
   SELECT ${returning} FROM ${table}
+      ${query}
       ORDER BY ${order_by} ${sort}
       LIMIT ${limit}
       OFFSET ${offset}

@@ -40,7 +40,8 @@ const handlers = (type, handleResponse) => ({
           order_by,
           sort
         },
-        ctx.restReturning
+        ctx.restReturning,
+        ctx.restQuery
       )
     )
   },

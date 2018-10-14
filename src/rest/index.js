@@ -1,12 +1,6 @@
 /**
  * REST Interface for Postgres DB
  *
- * This Module exposes REST handlers for the following
- * tables inside of a Postgres DB
- *
- * - users
- * - records
- *
  * You can find the shape and types by looking at
  * the DB sql file
  *

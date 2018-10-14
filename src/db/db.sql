@@ -19,6 +19,7 @@ CREATE TABLE records(
   title VARCHAR(240) NOT NULL,
   message TEXT,
   keywords VARCHAR(100)[],
+  url TEXT,
   user_id UUID NOT NULL REFERENCES users(id),
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   last_updated TIMESTAMP NOT NULL DEFAULT NOW()
