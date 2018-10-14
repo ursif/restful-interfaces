@@ -41,6 +41,10 @@ const createLogger = require('./logger')
 const globalMiddleware = require('./globalMiddleware')
 
 /**
+ * The configuration object for this instance
+ */
+const configuration = require('./configuration')
+/**
  * We have the ability to validate incoming requests
  * along with map URL query arguments into an SQL
  * statement. You can see each module's main export
@@ -81,18 +85,13 @@ const app = globalMiddleware.reduce(
 )
 
 /**
- * Routes for REST Server
- */
-const routes = ['users', 'todos', 'lists', 'reminders', 'records', 'events']
-
-/**
  * Here we add our validations per resource
  * that we have registered inside of our
  * rest router. This is also where we set
  * what each route returns, injecting a value
  * into `ctx.restReturning`
  */
-routes.forEach(key => {
+configuration.routes.forEach(key => {
   if (!(key in validations)) {
     const err = new Error(
       'You did not create a validation for `' +
@@ -124,7 +123,7 @@ Object.keys(queries).forEach(query => {
  */
 app.use(
   rest({
-    routes
+    routes: configuration.routes
   }).middleware()
 )
 

@@ -11,19 +11,18 @@
  *
  * Every validation _must_ call `next()`. This way, we can
  * go all the way down to the DB layer.
+ *
+ * All files inside of this folder are exported as their
+ * name without the extension
  */
-const users = require('./users')
-const records = require('./records')
-const todos = require('./todos')
-const lists = require('./lists')
-const reminders = require('./reminders')
-const events = require('./events')
+const fs = require('fs')
 
-module.exports = {
-  users,
-  records,
-  todos,
-  lists,
-  reminders,
-  events
-}
+const paths = fs.readdirSync(__dirname).filter(path => path !== 'index.js')
+
+module.exports = paths.reduce((a, path) => {
+  const name = path.slice(0, -3)
+  return {
+    ...a,
+    [name]: require(`${__dirname}/${path}`)
+  }
+}, {})

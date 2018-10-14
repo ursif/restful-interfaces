@@ -18,6 +18,8 @@ This is meant to be used as a base level for your application. It offers a
 common API for interacting with tables in Postgres while allowing the developer
 to extend and modify with ease.
 
+### Adding A DB Table
+
 Let's see how we could add a new table, `events`, to our system. First, we would
 design the table schema inside of `db.sql`. This file should be able to be ran
 and get a developer the _most up to date_ version of the schema of the database.
@@ -25,8 +27,8 @@ and get a developer the _most up to date_ version of the schema of the database.
 > If you modify a table, add the update to the `CREATE` command instead of doing
 > an `ALTER`. This SQL command is a way to get the _correct_ schema, not how to
 > modify your current schema to match.
-
-### Adding A DB Table
+>
+> It is up to _you_ to ensure that your Postgres database matches the sql file
 
 ```sql
 /* We are creating a new table called events
@@ -86,13 +88,12 @@ root@5d85c2252c9c:/ exit
 
 Now that we have the table created, we can add it to our `rest` routes:
 
-`src/index.js`
+`src/configuration/index.js`
 
 ```javascript
-/**
- * Routes for REST Server
- */
-const routes = ['users', 'todos', 'lists', 'reminders', 'records', 'events']
+module.exports = {
+  routes: ['users', 'todos', 'lists', 'reminders', 'records', 'events']
+}
 ```
 
 ### Adding the Validation
@@ -167,18 +168,6 @@ router.resource('events', {
 module.exports = router
 ```
 
-Then, add the `require` to `src/valdiations/index.js`
-
-```js
-/* other requires */
-const events = require('./events')
-
-module.exports = {
-  /* other exports */,
-  events
-}
-```
-
 ### Adding Query Mapping
 
 Sometimes the queries for the resource are complex and aren't just by ID or a
@@ -218,20 +207,6 @@ router.resource('events', {
 })
 
 module.exports = router
-```
-
-And of course, add it the queries export:
-
-`src/queries/index.js`
-
-```js
-/* other requires */
-const events = require('./events')
-
-module.exports = {
-  /* other exports */,
-  events
-}
 ```
 
 ### Ensuring it Works
