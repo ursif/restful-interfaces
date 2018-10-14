@@ -8,6 +8,7 @@ This project showcases how to create a RESTful interface on top of a PostgresDB.
 
 _**Table of Contents**_
 
+- [Creating the DB](#creating-the-db)
 - [Adding a DB Table](#adding-a-db-table)
 - [Adding a Route](#adding-a-route)
 - [Adding the Validation](#adding-the-validation)
@@ -17,6 +18,25 @@ _**Table of Contents**_
 This is meant to be used as a base level for your application. It offers a
 common API for interacting with tables in Postgres while allowing the developer
 to extend and modify with ease.
+
+### Creating the DB
+
+Before we can create a RESTful interface on top of a Postgres DB, we need to
+have the DB to interface with! You can use the `src/db/db.sql` file in order to
+create your own DB that is up to date with this repos or you can do the
+following:
+
+- `docker-compose -f docker-compose.dev.yml up`
+  - Start docker instance of pg
+- `docker ps`
+  - Get the docker container id for postgres
+- `docker exec -it <id> bash`
+  - Enter the docker container
+- Copy the `db.sql` into a file on that container: -
+  ```bash
+  root@5d85c2252c9c:/ echo "<copy of sql file" >> db.sql
+  root@5d85c2252c9c:/ psql -U timi -d cms -f db.sql
+  ```
 
 ### Adding A DB Table
 
