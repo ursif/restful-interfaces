@@ -110,7 +110,7 @@ const db = Object.assign(
     destroy: destroy(pool, table),
     byId: byId(pool, table)
   }),
-  pool
+  { pool }
 )
 
 module.exports = db

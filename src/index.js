@@ -55,6 +55,12 @@ const validations = require('./validations')
 const queries = require('./queries')
 
 /**
+ * We also have some custom handler
+ * for helpful information about the
+ * tables that this represents
+ */
+const schema = require('./schema')
+/**
  * Grab any needed env arguments
  */
 const { PORT = 3210 } = process.env
@@ -127,28 +133,7 @@ const restHandler = rest({
 
 app.use(restHandler.middleware())
 
-app.use(ctx => {
-  if (ctx.request.path === '/') {
-    ctx.body = {
-      data: restHandler.routes
-        .filter(
-          ({ middlewares }) =>
-            !middlewares.some(fn => fn.name == 'notImplemented_')
-        )
-        .map(({ path, method }) => ({
-          path,
-          method
-        }))
-        .reduce(
-          (a, c) => ({
-            ...a,
-            [c.path]: c.path in a ? a[c.path].concat(c.method) : [c.method]
-          }),
-          {}
-        )
-    }
-  }
-})
+app.use(schema)
 /**
  * Finally, once all of our world is set up,
  * we start listening at the specified port

@@ -8,12 +8,19 @@ This project showcases how to create a RESTful interface on top of a PostgresDB.
 
 _**Table of Contents**_
 
+- [Checking Types](#checking-types)
 - [Creating the DB](#creating-the-db)
 - [Adding a DB Table](#adding-a-db-table)
 - [Adding a Route](#adding-a-route)
 - [Adding the Validation](#adding-the-validation)
 - [Adding Query Mapping](#adding-query-mapping)
 - [Ensuring it Works](#ensuring-it-works)
+
+### Checking Types
+
+You can check the types of the current database that this is wrapping by going
+to `GET /schemas`. That will return the schemas of the available tables that you
+an add routes for.
 
 This is meant to be used as a base level for your application. It offers a
 common API for interacting with tables in Postgres while allowing the developer
