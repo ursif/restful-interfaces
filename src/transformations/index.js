@@ -10,13 +10,12 @@
  * or any other request _transformation_.
  */
 const fs = require('fs')
-
+const router = require('../router.js')()
 const paths = fs.readdirSync(__dirname).filter(path => path !== 'index.js')
 
 module.exports = paths.reduce((a, path) => {
   const name = path.slice(0, -3)
-  return {
-    ...a,
-    [name]: require(`${__dirname}/${path}`)
-  }
+  const route = router.resource(name, require(`${__dirname}/${path}`))
+
+  return { ...a, [name]: route }
 }, {})

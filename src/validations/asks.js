@@ -1,39 +1,44 @@
-const router = require('../router.js')()
+const throwError = (msg, code) => {
+  const err = new Error(msg)
+
+  err.code = code
+
+  throw err
+}
 
 const create = (ctx, next) => {
   if (!ctx.request.body) {
-    const err = new Error('No body given for creating of an ask')
-
-    err.code = 403
-
-    throw err
+    throwError('No body given for creating of an ask', 403)
   }
 
   const { body } = ctx.request
 
   if (!body.title) {
-    const err = new Error('No title given for the ask!')
-
-    err.code = 400
-
-    throw err
+    throwError('No title given for the ask!', 400)
   }
 
   if (body.title.length > 240) {
-    const err = new Error(
-      'You cannot save a title greater than 240 characters. Please change your title and try again.'
+    throwError(
+      'You cannot save a title greater than 240 characters. Please change your title and try again.',
+      400
     )
+  }
 
-    err.code = 400
+  if (body.priority > 100) {
+    throwError('Something cannot be more important than 100!', 400)
+  }
 
-    throw err
+  if (body.priority < 0) {
+    throwError('Something cannot be less important than 0!', 400)
+  }
+
+  if (body.due_date && new Date(body.due_date).getMilliseconds() < Date.now()) {
+    throwError('You cannot have something that was due before now!', 400)
   }
 
   return next()
 }
 
-router.resource('asks', {
+module.exports = {
   create
-})
-
-module.exports = router
+}
