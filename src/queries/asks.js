@@ -1,11 +1,7 @@
-const router = require('../router.js')()
-
 const index = (ctx, next) => {
   return next()
 }
 
-router.resource('asks', {
+module.exports = {
   index
-})
-
-module.exports = router
+}
