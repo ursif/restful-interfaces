@@ -30,7 +30,7 @@
  *                    and `ORDER BY LIMIT OFFSET`
  */
 
-const router = require('koa-rest-router')({ prefix: process.env.REST_PREFIX })
+const router = require('../router.js')()
 const generic = require('./generic')
 
 const handleResponse = async (ctx, prom, status = 200) => {
