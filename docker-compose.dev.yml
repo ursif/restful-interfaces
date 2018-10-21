@@ -7,4 +7,4 @@ services:
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: timi
-      POSTGRES_DB: cms
+      POSTGRES_DB: restful
