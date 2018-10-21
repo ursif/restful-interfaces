@@ -53,6 +53,7 @@ const configuration = require('./configuration')
  */
 const validations = require('./validations')
 const queries = require('./queries')
+const transformations = require('./transformations')
 
 /**
  * We also have some custom handler
@@ -119,6 +120,14 @@ Object.keys(queries).forEach(query => {
   app.use(queries[query].middleware())
 })
 
+/**
+ * We can even transform the request data
+ * (request.body) into savable/readable
+ * values via transformations
+ */
+Object.keys(transformations).forEach(transformation =>
+  app.use(transformations[transformation].middleware())
+)
 /**
  * WARNING: THIS TALKS TO DB WITHOUT RULES!
  *
