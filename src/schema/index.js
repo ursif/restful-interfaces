@@ -29,14 +29,20 @@ module.exports = async (ctx, next) => {
                       column_name,
                       udt_name,
                       is_nullable,
-                      column_default
+                      column_default,
+                      character_maximum_length,
+                      is_updatable
+                      // ...rest
                     }) => ({
                       type: `${data_type}${
                         data_type === udt_name ? '' : ' ' + udt_name
                       }`,
                       name: column_name,
                       nullable: is_nullable === 'YES',
-                      defaultValue: column_default
+                      defaultValue: column_default,
+                      maxLength: character_maximum_length,
+                      updateable: is_updatable === 'YES'
+                      // ...rest
                     })
                   )
                 }))
